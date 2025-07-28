@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Sneakers</title>
+  <link rel="stylesheet" href="./main.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
+
+    :root {
+      --orange: #f59e48;
+      --beige: #f5e7d6;
+      --white: #ffffff;
+      --gray: #f3f3f3;
+      --dark: #1d1d1f;
+      --light-gray: #eaeaea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--gray);
+      color: var(--dark);
+    }
+
+    .container2 {
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .summary {
+      background-color: var(--beige);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .summary h3 {
+      margin-top: 0;
+    }
+
+    form label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: 600;
+    }
+
+    form input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .btn {
+      margin-top: 30px;
+      width: 100%;
+      background-color: var(--orange);
+      color: var(--white);
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e1882f;
+    }
+
+    /* Make all avatar/profile images circular with a border */
+    #checkout-avatar,
+    .avatar img,
+    .profile-preview {
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      box-shadow: 0 2px 8px rgba(245, 158, 72, 0.08);
+    }
+
+    .avatar {
+      position: relative;
+      display: inline-block;
+    }
+
+    #signout-btn {
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 70px;
+      z-index: 20;
+      background: #fff;
+      color: #f59e48;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 28px 10px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(245, 158, 72, 0.15);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      outline: none;
+    }
+
+    .avatar:hover #signout-btn,
+    .avatar:focus-within #signout-btn {
+      display: flex;
+    }
+
+    #signout-btn:hover, #signout-btn:focus {
+      background: #f59e48;
+      color: #fff;
+      box-shadow: 0 6px 24px rgba(245, 158, 72, 0.22);
+    }
+
+    .signout-icon svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      margin-right: 4px;
+    }
+
+    .signout-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+
+  <script src="cart.js" defer></script>
+  <script src="checkout.js" defer></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      localStorage.setItem("returnTo", "checkout.html");
+      window.location.href = "signin.html";
+      return;
+    }
+
+    // ✅ Signed in — load cart and display it
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.querySelector(".checkout-items");
+    const totalDisplay = document.querySelector(".checkout-total");
+
+    let grandTotal = 0;
+
+    cart.forEach(item => {
+      const itemTotal = item.price * item.quantity;
+      grandTotal += itemTotal;
+
+      const itemEl = document.createElement("div");
+      itemEl.classList.add("checkout-item");
+      itemEl.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" width="50" />
+        <div>
+          <p><strong>${item.name}</strong></p>
+          <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+          <p><strong>Total: $${itemTotal.toFixed(2)}</strong></p>
+        </div>
+      `;
+      container.appendChild(itemEl);
+    });
+
+    totalDisplay.innerHTML = `<h3>Grand Total: $${grandTotal.toFixed(2)}</h3>`;
+  });
+</script>
+
+</head>
+<body>
+  <div class="container">
+    <header>
+          <nav class="navbar">
+            <section class="nav-first">
+              <svg
+                class="menu-icon"
+                width="16"
+                height="15"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
+                  fill="#69707D"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <div class="logo">
+                <img src="images/logo.svg" alt="sneakers logo" id="navbar-logo"/>
+              </div>
+              <div class="backdrop"></div>
+              <div class="nav-links">
+                <svg
+                  class="close-icon"
+                  width="14"
+                  height="15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
+                    fill="#69707D"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+                <a href="http://127.0.0.1:5500/collections.html#">Collections</a>
+                <a href="http://127.0.0.1:5500/men.html">Men</a>
+                <a href="http://127.0.0.1:5500/women.html">Women</a>
+                <a href="http://127.0.0.1:5500/About.html">About</a>
+                <a href="http://127.0.0.1:5500/contact.html">Contact</a>
+              </div>
+            </section>
+            <section class="nav-second">
+              <div class="cart">
+                <img
+                  class="cart-icon"
+                  src="images/icon-cart.svg"
+                  alt="cart icon"
+                />
+                <div class="cart-container">
+                  <div class="cart-title">Cart</div>
+                  <div class="cart-items empty">
+                    <p class="cart-empty">Your cart is empty</p>
+                  </div>
+                  <button class="checkout empty">Checkout</button>
+                </div>
+                <div class="cart-count">
+                  <span class="qty">0</span>
+                </div>
+              </div>
+              <div class="avatar" style="position:relative;">
+                <img id="profile-avatar" src="images/image-avatar.png" alt="avatar" />
+                <button id="signout-btn" aria-label="Sign Out">
+                  
+                  <span class="signout-text">Sign Out</span>
+                </button>
+              </div>
+            </section>
+          </nav>
+        </header>
+
+    <div class="container2">
+      <h2>Checkout</h2>
+
+      <div class="summary">
+        <h2 style="font-size: 22px; ">Order Summary</h3>
+        
+        <p id="checkout-quantity"><strong></strong> </p>
+        <p id="checkout-price"><strong>Total:</strong> <span style="font-weight: bold;"></span></p>
+      </div>
+
+      <div style="text-align:center;">
+        <img id="checkout-avatar" src="images/dummy-avatar.png" alt="avatar" style="width:60px; border-radius:50%;" />
+        <p id="user-email" style="font-weight:bold;"></p>
+        <!-- <button id="signout-btn" style="margin-bottom:10px;">Sign Out</button> -->
+      </div>
+
+      <form>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Adeluka Pelumi" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="ap@google.com" required />
+
+        <label for="address">Shipping Address</label>
+        <input type="text" id="address" placeholder="" required />
+
+        <label for="card">Card Number</label>
+        <input type="text" id="card" placeholder="" required />
+
+        <label for="expiry">Expiry Date</label>
+        <input type="text" id="expiry" placeholder="" required />
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" placeholder="" required />
+
+        <button class="btn" type="submit" >Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const user = JSON.parse(localStorage.getItem("user"));
+  // Navbar avatar
+  const navbarAvatar = document.querySelector('.avatar img');
+  // Checkout avatar
+  const avatarImg = document.getElementById("checkout-avatar");
+  const emailDisplay = document.getElementById("user-email");
+  const signoutBtn = document.getElementById("signout-btn");
+
+  if (user && user.photo) {
+    if (navbarAvatar) navbarAvatar.src = user.photo;
+    avatarImg.src = user.photo;
+    emailDisplay.textContent = `Signed in as: ${user.email}`;
+    signoutBtn.style.display = "block";
+  } else if (user) {
+    if (navbarAvatar) navbarAvatar.src = "images/image-avatar.png";
+    avatarImg.src = "images/image-avatar.png";
+    emailDisplay.textContent = `Signed in as: ${user.email}`;
+    signoutBtn.style.display = "block";
+  } else {
+    if (navbarAvatar) navbarAvatar.src = "images/dummy-avatar.png";
+    avatarImg.src = "images/dummy-avatar.png";
+    emailDisplay.textContent = "";
+    signoutBtn.style.display = "none";
+  }
+
+  signoutBtn.addEventListener("click", function () {
+    localStorage.removeItem("user");
+    window.location.href = "index.html";
+  });
+
+  // Logo click to go to index page
+  const navbarLogo = document.getElementById("navbar-logo");
+  if (navbarLogo) {
+    navbarLogo.addEventListener("click", function () {
+      window.location.href = "index.html";
+    });
+  }
+});
+</script>
+</body>
+</html>

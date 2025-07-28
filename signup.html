@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Kumbh Sans', sans-serif;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .logo {
+      width: 140px;
+      display: block;
+      margin-bottom: 2rem;
+    }
+    .signin-card {
+      border-radius: 16px;
+      padding: 24px  50px;
+      min-width: 370px;
+      width: 30%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .signin-card .greetings {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 1rem;
+      gap: 0.6rem;
+    }
+
+    .signin-card .greetings h2 {
+      color: hsl(220, 13%, 13%);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: left;
+      margin: 0;
+      width: 100%;
+      text-align: center;
+    }
+    .signin-card .greetings p {
+      color: hsl(219, 9%, 45%);
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+      margin: 0;
+    }
+
+    .signin-card .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 1.3rem;
+    }   
+
+    .signin-card label {
+      align-self: flex-start;
+      font-weight: 700;
+      color: #69707D;
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    .signin-card #profilePhoto-label{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .signin-card input[type="email"],
+    .signin-card input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #eaeaea;
+      border-radius: 60px;
+      background: #f6f8fa;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      transition: border 0.2s;
+    }
+    .signin-card input[type="email"]:focus,
+    .signin-card input[type="password"]:focus {
+      border: 1.5px solid #f59e48;
+      outline: none;
+    }
+    .signin-card input::placeholder {
+      font-size: 1rem;
+      color: #b0b0b0;
+    }
+    .profile-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    .profile-preview {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: white;
+      object-fit: cover;
+      border: 2px solid hsl(25, 100%, 94%);
+      box-shadow: 0 2px 8px rgba(245, 158, 72, 0.08);
+      margin-bottom: 0.3rem;
+    }
+    .signin-card .options-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    .signin-card .options-row label {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #69707D;
+      font-weight: 400;
+    }
+    .signin-card .options-row a {
+      color: #3b82f6;
+      font-size: 0.95rem;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .signin-card button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background: hsl(26, 100%, 55%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
+      transition: background 0.2s;
+      margin-top: -1rem;
+    }
+    .signin-card button[type="submit"]:hover {
+      background: hsl(26, 78%, 73%);
+      color: #1d1d1f;
+    }
+    .signin-card .google-btn {
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      color: #1d1d1f;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: border 0.2s;
+    }
+    .signin-card .google-btn:hover {
+      border: 1.5px solid #3b82f6;
+      background: #f6f8fa;
+    }
+    .signin-card .signin-link {
+      font-size: 0.95rem;
+      color: #69707D;
+      text-align: center;
+      width: 100%;
+    }
+    .signin-card .signin-link a {
+      color: hsl(26, 100%, 55%);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    #back-to-home-btn{
+      position: fixed;
+      top: 10%;
+      left: 15%;
+      padding: 10px 20px;
+      background-color: hsl(26, 100%, 55%);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 150px;
+      height: 50px;
+      border-radius: 100px;
+    }
+    #back-to-home-btn img{
+      position: absolute;
+      top: 0;
+      left: 0;;
+      width: 150px;
+      height: 50px;
+      border-radius: 100px;
+    }
+
+    #back-to-home-btn:hover{
+      opacity: 50%;
+    }
+
+  </style>
+</head>
+<body>
+  <button id="back-to-home-btn"><img src="./images/back to home.png" alt=""></button>
+
+  <form class="signin-card" id="signupForm" enctype="multipart/form-data">
+    <div class="greetings">
+      <img src="images/logo.svg" alt="sneakers logo" class="logo" />
+      <h2>START YOUR JOURNEY</h2>
+      <p>Sign up to sneakers</p>
+    </div>
+    <div class="form-group">
+      <!-- <label for="email">Email address</label> -->
+      <input type="email" id="email" placeholder="Email address" required />
+      <!-- <label for="password">Password</label> -->
+      <input type="password" id="password" placeholder="Password" required />
+      <div class="options-row">
+        <label><input type="checkbox" id="rememberMe" /> Remember for 30 days</label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <div class="profile-upload">
+        <label for="profilePhoto" id="profilePhoto-label">
+          <p>Upload Profile Picture</p>
+          <img id="profilePreview" class="profile-preview" src="images/profile.png" alt="Profile Preview" />  
+        </label>
+        
+        <input type="file" id="profilePhoto" accept="image/*" hidden/>
+      </div>
+    </div>
+    <div class="error-msg" id="errorMsg" style="display:none;"></div>
+    <button type="submit">Sign Up</button>
+    <!-- Optional: Add Google sign up button if you want -->
+    <!--
+    <button type="button" class="google-btn">
+      <img src="images/google-icon.png" alt="Google" style="width:22px;vertical-align:middle;" />
+      Sign up with Google
+    </button>
+    -->
+    <div class="signin-link">
+      Already have an account? <a href="signin.html">Sign in</a>
+    </div>
+  </form>
+  <script>
+    const backToHomeBtn = document.getElementById("back-to-home-btn");
+
+    backToHomeBtn.addEventListener("click", function () {
+      window.location.href = "index.html";
+    })
+
+    // Preview profile photo before upload
+    document.getElementById("profilePhoto").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      const preview = document.getElementById("profilePreview");
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          preview.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "images/profile.png";
+      }
+    });
+
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const fileInput = document.getElementById("profilePhoto");
+      const file = fileInput.files[0];
+      const errorMsg = document.getElementById("errorMsg");
+
+      // Get users array from localStorage
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+
+      // Check if email already exists
+      if (users.some(u => u.email === email)) {
+        errorMsg.textContent = "This account already exists. Please sign in.";
+        errorMsg.style.display = "block";
+        return;
+      }
+
+      // Add new user
+      function saveUser(photo) {
+        const password = document.getElementById("password").value;
+        const newUser = { email, password, photo, verified: true };
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("user", JSON.stringify(newUser)); // Set current user
+        const returnTo = localStorage.getItem("returnTo") || "index.html";
+        localStorage.removeItem("returnTo");
+        window.location.href = returnTo;
+      }
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          saveUser(event.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        saveUser(undefined);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const logo = document.getElementById("navbar-logo") || document.querySelector(".logo img");
+      if (logo) {
+        logo.style.cursor = "pointer";
+        logo.addEventListener("click", function () {
+          window.location.href = "index.html";
+        });
+      }
+    });
+  </script>
+</body>
+</html>

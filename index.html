@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | E-commerce product page</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js" defer></script>
+    <script src="slider.js" defer></script>
+    <script src="cart.js" defer></script>
+    <style>
+      /* Add this to your <style> block in each HTgotcML file */
+      .avatar img,
+      .profile-preview,
+      #checkout-avatar {
+        border-radius: 50%;
+        border: 2px solid #f59e48; /* Use your orange color variable if available */
+        box-shadow: 0 2px 8px rgba(245, 158, 72, 0.08);
+      }
+
+      /* Add to your <style> block */
+      .avatar {
+        position: relative;
+        display: inline-block;
+      }
+
+      #profile-avatar {
+        cursor: pointer;
+        transition: box-shadow 0.2s;
+      }
+
+      #profile-avatar:hover {
+        box-shadow: 0 0 0 4px #f5e7d6;
+      }
+
+      #signout-btn {
+        display: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 70px;
+        z-index: 20;
+        background: #fff;
+        color: #f59e48;
+        border: none;
+        border-radius: 999px;
+        padding: 10px 28px 10px 18px;
+        font-size: 1rem;
+        font-weight: 600;
+        box-shadow: 0 4px 16px rgba(245, 158, 72, 0.15);
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        outline: none;
+      }
+
+      #signout-btn:hover,
+      #signout-btn:focus {
+        background: #f59e48;
+        color: #fff;
+        box-shadow: 0 6px 24px rgba(245, 158, 72, 0.22);
+      }
+
+      .signout-icon svg {
+        display: block;
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+        margin-right: 4px;
+      }
+
+      .signout-text {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav class="navbar">
+          <section class="nav-first">
+            <svg
+              class="menu-icon"
+              width="16"
+              height="15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
+                fill="#69707D"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <div class="logo">
+              <img src="images/logo.svg" alt="sneakers logo" id="navbar-logo" style="cursor:pointer;" />
+            </div>
+            <div class="backdrop"></div>
+            <div class="nav-links">
+              <svg
+                class="close-icon"
+                width="14"
+                height="15"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
+                  fill="#69707D"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <a href="http://127.0.0.1:5500/collections.html#">Collections</a>
+              <a href="http://127.0.0.1:5500/men.html">Men</a>
+              <a href="http://127.0.0.1:5500/women.html">Women</a>
+              <a href="http://127.0.0.1:5500/About.html">About</a>
+              <a href="http://127.0.0.1:5500/contact.html">Contact</a>
+            </div>
+          </section>
+          <section class="nav-second">
+            <div class="cart">
+              <img
+                class="cart-icon"
+                src="images/icon-cart.svg"
+                alt="cart icon"
+              />
+              <div class="cart-container">
+                <div class="cart-title">Cart</div>
+                <div class="cart-items empty">
+                  <p class="cart-empty">Your cart is empty</p>
+                </div>
+                <button class="checkout empty" id="checkout-button" >Checkout</button>
+              </div>
+              <div class="cart-count">
+                <span class="qty">0</span>
+              </div>
+            </div>
+            <div class="avatar">
+              <img id="profile-avatar" src="images/profile.png" />
+              <button id="signout-btn" aria-label="Sign Out">
+                <span class="signout-icon">
+                </span>
+                <span class="signout-text">Sign Out</span>
+              </button>
+            </div>
+          </section>
+        </nav>
+      </header>
+
+      <section class="main">
+        <div class="default gallery">
+          <div class="main-img">
+            <img
+              class="active"
+              src="images/image-product-1.jpg"
+              alt="product-img"
+            />
+            <img src="images/image-product-2.jpg" alt="product-img" />
+            <img src="images/image-product-3.jpg" alt="product-img" />
+            <img src="images/image-product-4.jpg" alt="product-img" />
+          </div>
+          <div class="thumb-list">
+            <div class="active">
+              <img
+                src="images/image-product-1-thumbnail.jpg"
+                alt="product-img"
+              />
+            </div>
+            <div>
+              <img
+                src="images/image-product-2-thumbnail.jpg"
+                alt="product-img"
+              />
+            </div>
+            <div>
+              <img
+                src="images/image-product-3-thumbnail.jpg"
+                alt="product-img"
+              />
+            </div>
+            <div>
+              <img
+                src="images/image-product-4-thumbnail.jpg"
+                alt="product-img"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="lightbox">
+          <div class="gallery">
+            <div class="main-img">
+              <!-- icons -->
+              <span class="icon-close">
+                <svg width="14" height="15" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
+                    fill="#69707D"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span class="icon-prev">
+                <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M11 1 3 9l8 8"
+                    stroke="#1D2026"
+                    stroke-width="3"
+                    fill="none"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span class="icon-next">
+                <svg width="13" height="18" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m2 1 8 8-8 8"
+                    stroke="#1D2026"
+                    stroke-width="3"
+                    fill="none"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+
+              <!-- main images -->
+              <img
+                class="active"
+                src="images/image-product-1.jpg"
+                alt="product-img"
+              />
+              <img src="images/image-product-2.jpg" alt="product-img" />
+              <img src="images/image-product-3.jpg" alt="product-img" />
+              <img src="images/image-product-4.jpg" alt="product-img" />
+            </div>
+            <div class="thumb-list">
+              <div class="active">
+                <img
+                  src="images/image-product-1-thumbnail.jpg"
+                  alt="product-img"
+                />
+              </div>
+              <div>
+                <img
+                  src="images/image-product-2-thumbnail.jpg"
+                  alt="product-img"
+                />
+              </div>
+              <div>
+                <img
+                  src="images/image-product-3-thumbnail.jpg"
+                  alt="product-img"
+                />
+              </div>
+              <div>
+                <img
+                  src="images/image-product-4-thumbnail.jpg"
+                  alt="product-img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <h3>SNEAKER COMPANY</h3>
+          <h2 class="product-name">Fall Limited Edition Sneakers</h2>
+          <p class="product-desc">
+            These low-profile sneakers are your perfect casual wear companion.
+            Featuring a durable rubber outer sole, they’ll withstand everything
+            the weather can offer.
+          </p>
+          <div class="price-info">
+            <div class="price">
+              <span class="current-price">$125.00</span>
+              <span class="discount">50%</span>
+            </div>
+            <div class="prev-price">$250.00</div>
+          </div>
+          <div class="add-to-cart-container">
+            <div class="counter">
+              <button class="minus">
+                <svg
+                  width="12"
+                  height="4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <path
+                      d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z"
+                      id="a"
+                    />
+                  </defs>
+                  <use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#a" />
+                </svg>
+              </button>
+              <span class="count">1</span>
+              <button class="plus">
+                <svg
+                  width="12"
+                  height="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <path
+                      d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z"
+                      id="b"
+                    />
+                  </defs>
+                  <use fill="#FF7E1B" fill-rule="nonzero" xlink:href="#b" />
+                </svg>
+              </button>
+            </div>
+            <button class="add-to-cart">
+              <span>
+                <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
+                    fill="#69707D"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+              </span>
+              <span>Add to cart</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="auth-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.35); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#fff; border-radius:30px; padding:32px 24px; max-width:320px; width:90%; box-shadow:0 8px 32px rgba(0,0,0,0.15); text-align:center;">
+        <h3 style="margin-top:0;">You need an account</h3>
+        <p style="color:hsl(220, 13%, 13%);">Please sign up or sign in to checkout.</p>
+        <div style="display:flex; gap:12px; justify-content:center; margin-top:24px;">
+          <button id="popup-signup" style="padding:10px 20px; background:hsl(26, 100%, 55%); color:#fff; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Sign Up</button>
+          <button id="popup-signin" style="padding:10px 20px; background:#fff; color:hsl(26, 100%, 55%); border:2px solid hsl(26, 100%, 55%); border-radius:8px; font-weight:600; cursor:pointer;">Sign In</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+  const avatarImg = document.getElementById("profile-avatar");
+  const signoutBtn = document.getElementById("signout-btn");
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // Set avatar image based on user
+  if (user && user.photo) {
+    avatarImg.src = user.photo;
+  } else if (user) {
+    avatarImg.src = "images/image-avatar.png";
+  } else {
+    avatarImg.src = "images/profile.png";
+  }
+
+  // Hide signout button by default
+  signoutBtn.style.display = "none";
+
+  // Toggle signout button on avatar click
+  avatarImg.addEventListener("click", function () {
+    signoutBtn.style.display = signoutBtn.style.display === "block" ? "none" : "block";
+  });
+
+  signoutBtn.addEventListener("click", function () {
+    localStorage.removeItem("user");
+    window.location.reload();
+  });
+
+  // Logo click to go to index page
+  document.getElementById("navbar-logo").addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
+
+  // Checkout popup logic
+  const checkoutBtn = document.getElementById("checkout-button");
+  const authPopup = document.getElementById("auth-popup");
+  const popupSignup = document.getElementById("popup-signup");
+  const popupSignin = document.getElementById("popup-signin");
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", function (e) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        e.preventDefault();
+        if (authPopup) authPopup.style.display = "flex";
+      } else {
+        window.location.href = "checkout.html";
+      }
+    });
+  }
+
+  if (popupSignup) {
+    popupSignup.addEventListener("click", function () {
+      window.location.href = "signup.html";
+    });
+  }
+  if (popupSignin) {
+    popupSignin.addEventListener("click", function () {
+      window.location.href = "signin.html";
+    });
+  }
+
+  // Optional: Close popup when clicking outside the box
+  if (authPopup) {
+    authPopup.addEventListener("click", function(e) {
+      if (e.target === authPopup) authPopup.style.display = "none";
+    });
+  }
+});
+    </script>
+  </body>
+</html>
